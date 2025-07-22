@@ -1,0 +1,13 @@
+# os
+pandas
+numpy
+crewai
+crewai.tools
+langchain_openai
+matplotlib
+seaborn
+pydantic
+scikit-learn
+xgboost
+scipy
+# IPython.display
