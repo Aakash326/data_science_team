@@ -1,0 +1,7 @@
+crewai
+python-dotenv
+pandas
+matplotlib
+seaborn
+scikit-learn
+openai

@@ -8,6 +8,7 @@ matplotlib
 seaborn
 pydantic
 scikit-learn
-xgboost
 scipy
+langchain-google-genai
+google-generativeai
 # IPython.display

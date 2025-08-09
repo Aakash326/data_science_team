@@ -5,12 +5,17 @@ This module contains all task definitions for the data science workflow.
 """
 
 from crewai import Task
+import logging
+from config import Config
 
 
 def create_data_exploration_task(agent):
     """Create data exploration task."""
+    real_path = Config.DATA_PATH
     return Task(
         description=(
+            f"A CSV file located at `{real_path}` has already been loaded into a pandas DataFrame named `df`. "
+            "Start your exploration with `print(df.head())` and `print(df.info())`.\n\n"
             "Analyze the dataset comprehensively to understand its structure, quality, and patterns:\n"
             "- Investigate data quality issues and assess what might need attention\n"
             "- Discover relationships between variables and identify patterns\n"
@@ -101,9 +106,33 @@ class DataScienceTasks:
     @staticmethod
     def get_all_tasks(agents):
         """Create and return all tasks with their assigned agents."""
-        return [
-            create_data_exploration_task(agents[0]),
-            create_feature_engineering_task(agents[1]),
-            create_model_ensemble_task(agents[2]),
-            create_model_validation_task(agents[3])
-        ]
+        # Setup logging
+        logging.basicConfig(level=logging.INFO)
+        logger = logging.getLogger(__name__)
+        
+        # Defensive: Ensure agents list has at least 4 elements
+        if len(agents) < 4:
+            raise ValueError("At least 4 agents are required for the pipeline tasks.")
+        
+        try:
+            tasks = []
+            # Create tasks with proper error handling
+            for i, (creator_func, agent) in enumerate([
+                (create_data_exploration_task, agents[0]),
+                (create_feature_engineering_task, agents[1]),
+                (create_model_ensemble_task, agents[2]),
+                (create_model_validation_task, agents[3])
+            ]):
+                try:
+                    task = creator_func(agent)
+                    tasks.append(task)
+                    logger.info(f"Created task {i+1}: {task.description[:50]}...")
+                except Exception as e:
+                    logger.error(f"Failed to create task {i+1}: {str(e)}")
+                    raise
+            
+            return tasks
+            
+        except Exception as e:
+            logger.error(f"Error in task creation pipeline: {str(e)}")
+            raise
