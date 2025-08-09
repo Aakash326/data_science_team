@@ -1,0 +1,38 @@
+
+crewai
+langchain-google-genai
+langchain-openai
+pydantic
+
+# Data processing and analysis
+pandas
+numpy
+scipy
+chardet
+litellm
+
+# Machine learning and statistics
+scikit-learn
+statsmodels
+
+# Visualization
+matplotlib
+seaborn
+plotly
+
+# Jupyter notebook support (optional)
+ipython
+jupyter
+notebook
+
+# Additional utilities
+python-dotenv
+tqdm
+requests
+
+# Optional advanced libraries
+# Uncomment if needed for specific analyses
+# xgboost>=2.0.0
+# lightgbm>=4.1.0
+# shap>=0.44.0
+# plotly-dash>=2.14.0

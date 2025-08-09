@@ -1,0 +1,26 @@
+# requirements_streamlit.txt - Requirements for Streamlit App
+
+# Core Streamlit
+streamlit>=1.28.0
+
+# Data manipulation
+pandas>=1.5.0
+numpy>=1.21.0
+
+# Existing requirements from main framework
+crewai>=0.1.0
+openai>=1.0.0
+litellm>=1.0.0
+python-dotenv>=0.19.0
+
+# Visualization (if needed for Streamlit)
+matplotlib>=3.5.0
+seaborn>=0.11.0
+plotly>=5.0.0
+
+# File handling
+chardet>=4.0.0
+
+# Additional Streamlit components (optional)
+streamlit-aggrid>=0.3.0
+streamlit-option-menu>=0.3.0
