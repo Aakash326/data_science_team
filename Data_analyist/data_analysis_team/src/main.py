@@ -46,20 +46,20 @@ class AdvancedDataAnalyzer:
         
         # Validate API key
         if not self.api_key:
-            raise ValueError("❌ OpenAI API key is required. Please set OPENAI_API_KEY.")
+            raise ValueError("OpenAI API key is required. Please set OPENAI_API_KEY.")
         
-        logger.info(f"✅ OpenAI API key validated (...{self.api_key[-4:]})")
+        logger.info(f" OpenAI API key validated (...{self.api_key[-4:]})")
         
         # Initialize LLM
         try:
             self.llm = get_llm()
             test_response = self.llm.invoke("Test - respond with 'OK'")
             if "ok" in test_response.lower():
-                logger.info("✅ OpenAI connection verified")
+                logger.info("OpenAI connection verified")
             else:
-                logger.warning("⚠️ OpenAI connection test returned unexpected response")
+                logger.warning("OpenAI connection test returned unexpected response")
         except Exception as e:
-            logger.error(f"❌ OpenAI connection failed: {e}")
+            logger.error(f" OpenAI connection failed: {e}")
             raise
         
         # Setup enhanced plotting
@@ -102,7 +102,7 @@ class AdvancedDataAnalyzer:
         """Detect file encoding with high accuracy"""
         try:
             with open(file_path, 'rb') as f:
-                raw_data = f.read(100000)  # Read 100KB for better detection
+                raw_data = f.read(100000) 
                 result = chardet.detect(raw_data)
                 encoding = result['encoding']
                 confidence = result['confidence']
@@ -146,7 +146,7 @@ class AdvancedDataAnalyzer:
                     for sep in [',', ';', '\t', '|']:
                         try:
                             df = pd.read_csv(file_path, encoding=encoding, sep=sep, low_memory=False)
-                            if df.shape[1] > 1:  # Valid if multiple columns
+                            if df.shape[1] > 1: 
                                 logger.info(f"✅ Loaded with encoding='{encoding}', sep='{sep}'")
                                 break
                         except:
@@ -323,7 +323,7 @@ class AdvancedDataAnalyzer:
                 else:
                     # High missing - flag but still impute
                     df_cleaned[column].fillna(df[column].median(), inplace=True)
-                    log_entry['strategy'] = '⚠️ HIGH MISSING: Median (temporary)'
+                    log_entry['strategy'] = 'HIGH MISSING: Median (temporary)'
                     log_entry['reasoning'] = 'Requires domain expertise or advanced methods'
             
             else:  # Categorical
@@ -343,7 +343,7 @@ class AdvancedDataAnalyzer:
                 else:
                     # High missing - flag
                     df_cleaned[column].fillna('High_Missing_Flag', inplace=True)
-                    log_entry['strategy'] = '⚠️ HIGH MISSING: Flagged'
+                    log_entry['strategy'] = 'HIGH MISSING: Flagged'
                     log_entry['reasoning'] = 'Consider feature engineering or removal'
             
             cleaning_log.append(log_entry)
@@ -352,7 +352,7 @@ class AdvancedDataAnalyzer:
         before_missing = df.isnull().sum().sum()
         after_missing = df_cleaned.isnull().sum().sum()
         
-        logger.info(f"✅ Missing value treatment completed:")
+        logger.info(f"  Missing value treatment completed:")
         logger.info(f"   • Missing before: {before_missing:,}")
         logger.info(f"   • Missing after: {after_missing:,}")
         logger.info(f"   • Columns treated: {len(cleaning_log)}")
@@ -555,19 +555,19 @@ def interactive_analysis():
                 break
             elif choice == '1':
                 result = run_quick_analysis()
-                print(f"✅ Quick analysis: {'completed' if result['success'] else 'failed'}")
+                print(f"Quick analysis: {'completed' if result['success'] else 'failed'}")
                 if not result['success']:
-                    print(f"❌ Error: {result.get('error', 'Unknown error')}")
+                    print(f"Error: {result.get('error', 'Unknown error')}")
             elif choice == '2':
                 result = run_standard_analysis()
                 print(f"✅ Standard analysis: {'completed' if result['success'] else 'failed'}")
                 if not result['success']:
-                    print(f"❌ Error: {result.get('error', 'Unknown error')}")
+                    print(f"Error: {result.get('error', 'Unknown error')}")
             elif choice == '3':
                 result = run_advanced_analysis()
                 print(f"✅ Advanced analysis: {'completed' if result['success'] else 'failed'}")
                 if not result['success']:
-                    print(f"❌ Error: {result.get('error', 'Unknown error')}")
+                    print(f" Error: {result.get('error', 'Unknown error')}")
             else:
                 print("❌ Invalid choice. Please enter 0-3.")
                 
@@ -579,7 +579,7 @@ def interactive_analysis():
 
 def main():
     """Main execution function"""
-    print("🚀 Advanced OpenAI Data Analysis Framework")
+    print("Advanced OpenAI Data Analysis Framework")
     print("=" * 60)
     
     try:
@@ -587,8 +587,8 @@ def main():
         result = run_advanced_analysis()
         
         if result['success']:
-            print("✅ Analysis completed successfully!")
-            print(f"📊 Report: {result['report']['report_file']}")
+            print("Analysis completed successfully!")
+            print(f" Report: {result['report']['report_file']}")
             print(f"🧹 Cleaned data: {result['report']['cleaned_file']}")
             
             # Print missing value treatment summary
@@ -598,15 +598,15 @@ def main():
                 for entry in cleaning_log:
                     print(f"  • {entry['column']}: {entry['strategy']}")
         else:
-            print(f"❌ Analysis failed: {result.get('error', 'Unknown error')}")
+            print(f" Analysis failed: {result.get('error', 'Unknown error')}")
             
     except Exception as e:
         logger.error(f"Main execution failed: {e}")
-        print(f"❌ Execution failed: {e}")
+        print(f" Execution failed: {e}")
 
 if __name__ == "__main__":
     # Choose execution mode
-    print("🎯 Advanced OpenAI Data Analysis Framework")
+    print(" Advanced OpenAI Data Analysis Framework")
     print("=" * 60)
     print("Execution options:")
     print("1. Run main analysis")
@@ -621,9 +621,9 @@ if __name__ == "__main__":
             main()
             
     except KeyboardInterrupt:
-        print("\n👋 Goodbye!")
+        print("\n Goodbye")
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f" Error: {e}")
 
 # Export key functions
 __all__ = [
